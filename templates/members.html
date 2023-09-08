@@ -1,0 +1,53 @@
+<!-- File: members.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management - Daftar Anggota</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-semibold mb-4">Daftar Anggota</h1>
+
+    <!-- Daftar Anggota -->
+    <div class="mb-8">
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+            <tr>
+                <th class="px-4 py-2 border border-black bg-blue-500 text-white">Nama</th>
+                <th class="px-4 py-2 border border-black bg-blue-500 text-white">Kontak</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for member in members %}
+                <tr>
+                    <td class="border border-black px-4 py-2">{{ member.name }}</td>
+                    <td class="border border-black px-4 py-2">{{ member.contact }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+     <!-- Form Tambah Anggota -->
+    <div>
+        <h2 class="text-xl font-semibold mb-2">Tambah Anggota</h2>
+        <form action="/add_member" method="POST">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <input type="text" name="name" placeholder="Nama" class="w-full px-4 py-2 rounded-lg border">
+                <input type="text" name="contact" placeholder="Kontak" class="w-full px-4 py-2 rounded-lg border">
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Tambah</button>
+                <a href="/" class="text-blue-500 hover:underline ml-4">Kembali ke Daftar Buku</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+   
+</div>
+</body>
+</html>
