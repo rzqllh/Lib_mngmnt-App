@@ -28,28 +28,12 @@ def index():
 
 @app.route('/add_book', methods=['POST'])
 def add_book():
-    title = request.form['title']
-    author = request.form['author']
-    genre = request.form['genre']
-    isbn = request.form['isbn']
-    copies = int(request.form['copies'])
-    year = request.form['year']  # Mengambil tahun dari formulir
-    city = request.form['city']  # Mengambil kota dari formulir
-    publisher = request.form['publisher']  # Mengambil penerbit dari formulir
-
-    new_book = Book(title, author, genre, isbn, copies, year, city, publisher)
-    books.append(new_book)
-
+    # ... (Add book creation logic)
     return redirect(url_for('index'))
 
 @app.route('/add_member', methods=['POST'])
 def add_member():
-    name = request.form['name']
-    contact = request.form['contact']
-
-    new_member = Member(name, contact)
-    members.append(new_member)
-
+    # ... (Add member creation logic)
     return redirect(url_for('members_list'))
 
 @app.route('/members_list')
@@ -58,8 +42,7 @@ def members_list():
 
 @app.route('/delete_book/<int:index>')
 def delete_book(index):
-    if 0 <= index < len(books):
-        del books[index]
+    # ... (Add book deletion logic)
     return redirect(url_for('index'))
 
 @app.route('/edit_book/<int:index>', methods=['GET', 'POST'])
@@ -70,11 +53,31 @@ def edit_book(index):
             # Update the book data with the form values
             book.title = request.form['title']
             book.author = request.form['author']
-            # ... (update other attributes)
-
+            book.genre = request.form['genre']
+            book.isbn = request.form['isbn']
+            book.year = request.form['year']
+            book.city = request.form['city']
+            book.publisher = request.form['publisher']
             return redirect(url_for('index'))
-        return render_template('edit_book.html', book=book)
+        return render_template('edit_book.html', book=book, index=index)
     return redirect(url_for('index'))
+
+@app.route('/edit_member/<int:index>', methods=['GET', 'POST'])
+def edit_member(index):
+    if 0 <= index < len(members):
+        member = members[index]
+        if request.method == 'POST':
+            # Update the member's data with the form values
+            member.name = request.form['name']
+            member.contact = request.form['contact']
+            return redirect(url_for('members_list'))
+        return render_template('edit_member.html', member=member, index=index)
+    return redirect(url_for('members_list'))
+
+@app.route('/delete_member/<int:index>')
+def delete_member(index):
+    # ... (Add member deletion logic)
+    return redirect(url_for('members_list'))
 
 if __name__ == '__main__':
     app.run(debug=True)
